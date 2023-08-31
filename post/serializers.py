@@ -87,17 +87,18 @@ class PostSerializer(serializers.ModelSerializer):
             'images',
             'likes',
         ]
+        
+    def create(self, validated_data):
+        writer = self.context.get('writer', None)
+        if writer:
+            self.validated_data['writer'] = writer
+        return super(PostSerializer, self).create(validated_data)
 
     def to_representation(self, instance):
         representation = super(PostSerializer, self).to_representation(instance)
         representation['writer'] = instance.writer.email
         return representation
 
-    def create(self, validated_data):
-        writer = self.context.get('writer', None)
-        if writer:
-            self.validated_data['writer'] = writer
-        return super(PostSerializer, self).create(validated_data)
 
 
 class UserPostSerializer(serializers.ModelSerializer):

@@ -2,7 +2,11 @@ from rest_framework.authentication import BaseAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import TokenError
 from rest_framework_simplejwt.state import token_backend
-from .models import User
+from django.contrib.auth.backends import ModelBackend
+# from .models import User
+
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 # 토큰 추출
@@ -23,3 +27,9 @@ class CookieJWTAuthentication(BaseAuthentication):
             raise AuthenticationFailed('Token is invalid.')
         except User.DoesNotExist:
             raise AuthenticationFailed('User not found.')
+        
+    def get_user(self, user_id):
+        try:
+            return User.objects.get(pk=user_id)
+        except User.DoesNotExist:
+            return None

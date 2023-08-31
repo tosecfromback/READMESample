@@ -18,8 +18,12 @@ from .serializers import (
 from django.db.models import Count
 from dotenv import load_dotenv
 
+from django.contrib.auth import get_user_model
+
 # 환경변수 로드
 load_dotenv()
+
+User = get_user_model()
 
 
 class Pagination(PageNumberPagination):

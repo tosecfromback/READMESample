@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'rest_framework_simplejwt',
+    'rest_framework.authtoken',
     'storages',
     'corsheaders',
     # 'sslserver',
@@ -203,3 +204,8 @@ SIMPLE_JWT = {
     ),
     'TOKEN_TYPE_CLAIM': 'token_type',
 }
+
+AUTHENTICATION_BACKENDS = [
+    'user.authentication.CookieJWTAuthentication',
+    'django.contrib.auth.backends.ModelBackend',
+]

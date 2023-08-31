@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate
 from rest_framework import serializers, status
 from rest_framework.response import Response
-from .models import User
+# from .models import User
 
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class SignupSerializer(serializers.ModelSerializer):
     password = serializers.CharField(
